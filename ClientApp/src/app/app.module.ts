@@ -28,6 +28,7 @@ import { TasksTodoComponent } from './tasks-todo/tasks-todo.component';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'tasks-todo', component: TasksTodoComponent },
     ])
   ],
   providers: [],
