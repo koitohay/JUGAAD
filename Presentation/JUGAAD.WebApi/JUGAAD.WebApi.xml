@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JUGAAD.WebApi</name>
+    </assembly>
+    <members>
+        <member name="M:JUGAAD.WebApi.Controllers.TaskTodoController.Create(JUGAAD.Application.Features.TaskFeatures.Commands.CreateTaskCommand)">
+            <summary>
+            Creates a New Product.
+            </summary>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JUGAAD.WebApi.Controllers.TaskTodoController.GetAll">
+            <summary>
+            Gets all Products.
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
