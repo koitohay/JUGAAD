@@ -18,6 +18,8 @@ namespace JUGAAD.WebApi
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -31,6 +33,12 @@ namespace JUGAAD.WebApi
             services.AddControllers();
 
             services.AddApplication();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                    builder => builder.AllowAnyOrigin());
+            });
 
             #region Swagger
             services.AddSwaggerGen(c =>
@@ -72,6 +80,8 @@ namespace JUGAAD.WebApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthorization();
 

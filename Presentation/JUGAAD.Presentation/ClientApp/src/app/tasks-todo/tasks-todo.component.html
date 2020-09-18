@@ -1,1 +1,23 @@
-<p>tasks-todo works!</p>
+<h1 id="tableLabel">Tasks-todo works</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+<p *ngIf="!tasks"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="tasks">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Completed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let task of tasks">
+      <td>{{ task.name }}</td>
+      <td>{{ task.description }}</td>
+      <td>{{ task.completed }}</td>
+    </tr>
+  </tbody>
+</table>
+
