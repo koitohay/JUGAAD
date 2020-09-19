@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { RepositoryService } from '../Shared/Services/repository.service';
+import { ErrorHandlerService } from '../Shared/Services/error-handler.service';
 
 @Component({
   selector: 'app-tasks-todo',
@@ -9,14 +9,17 @@ import { RepositoryService } from '../Shared/Services/repository.service';
 })
 export class TasksTodoComponent implements OnInit {
   public tasks: TaskTodo[];
+  public errorMessage: string = '';
 
-  constructor(private repo: RepositoryService) {
+  constructor(private repo: RepositoryService, private errorHandler: ErrorHandlerService) {
     this.repo.getData('api/v1/' + 'TaskTodo')
       .subscribe(res => {
         this.tasks = res as TaskTodo[];
+        $('#successModal').modal();
       },
         (error) => {
-          console.error(error);
+          this.errorHandler.handleError(error);
+          this.errorMessage = this.errorHandler.errorMessage;
         });
   }
 
