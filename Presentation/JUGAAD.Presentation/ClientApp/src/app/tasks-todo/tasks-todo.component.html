@@ -2,27 +2,56 @@
 
 <p>This component demonstrates fetching data from the server.</p>
 
-<p *ngIf="!tasks"><em>Loading...</em></p>
+<div fxLayout fxLayoutAlign="center center">
+  <mat-form-field fxFlex="40%">
+    <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+</div>
+<table mat-table [dataSource]="dataSource" matSort>
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+    <td mat-cell *matCellDef="let task"> {{task.name}} </td>
+  </ng-container>
 
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="tasks">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Completed</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let task of tasks">
-      <td>{{ task.name }}</td>
-      <td>{{ task.description }}</td>
-      <td>{{ task.completed }}</td>
-    </tr>
-  </tbody>
+  <ng-container matColumnDef="description">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+    <td mat-cell *matCellDef="let task"> {{task.description}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="completed">
+    <th mat-header-cell *matHeaderCellDef> Completed </th>
+    <td mat-cell *matCellDef="let task"> {{task.completed}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="details">
+    <th mat-header-cell *matHeaderCellDef> Details </th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button color="primary" (click)="redirectToDetails(element.id)">
+        <mat-icon class="mat-18">reorder</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="update">
+    <th mat-header-cell *matHeaderCellDef> Update </th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button color="accent" (click)="redirectToUpdate(element.id)">
+        <mat-icon class="mat-18">system_update</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="delete">
+    <th mat-header-cell *matHeaderCellDef> Delete </th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button color="warn" (click)="redirectToDelete(element.id)">
+        <mat-icon class="mat-18">delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
-<app-success-modal [modalHeaderText]="'Success message'"
-                   [modalBodyText]="'Action completed successfully'" [okButtonText]="'OK'"
-                   (redirectOnOK)="redirectToOwnerList()"></app-success-modal>
-
-<app-error-modal [modalHeaderText]="'Error message'"
-                 [modalBodyText]="errorMessage" [okButtonText]="'OK'"></app-error-modal>
+<mat-paginator [pageSize]="2" [pageSizeOptions]="[2, 4, 6, 10, 20]">
+</mat-paginator>
